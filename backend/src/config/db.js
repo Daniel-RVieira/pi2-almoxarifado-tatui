@@ -18,8 +18,11 @@ if (!process.env.DATABASE_URL) {
   );
 }
 
+// DATABASE_SSL=true para bancos na nuvem que exigem conexão segura (ex.: URL
+// externa do Render ou Neon). Localmente e na URL interna do Render não é preciso.
 export const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
+  ssl: process.env.DATABASE_SSL === "true" ? { rejectUnauthorized: false } : undefined,
 });
 
 pool.on("error", (err) => {

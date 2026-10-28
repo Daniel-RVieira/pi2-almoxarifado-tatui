@@ -9,7 +9,9 @@ async function migrate() {
   const schemaPath = path.join(__dirname, "schema.sql");
   const schemaSql = readFileSync(schemaPath, "utf-8");
 
-  console.log("Aplicando schema.sql em", process.env.DATABASE_URL);
+  // Mostra só host e banco: a DATABASE_URL completa contém a senha e iria para o log.
+  const { hostname, port, pathname } = new URL(process.env.DATABASE_URL);
+  console.log(`Aplicando schema.sql em ${hostname}:${port || 5432}${pathname}`);
   await pool.query(schemaSql);
   console.log("Schema aplicado com sucesso.");
 

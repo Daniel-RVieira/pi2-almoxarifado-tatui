@@ -48,6 +48,17 @@ npm run dev       # http://localhost:5173
 
 Depois, acesse o dashboard e importe os dois arquivos de `amostras-csv/` pelo painel de importação.
 
+## Publicação gratuita na nuvem (Render)
+
+O arquivo `render.yaml` cria um banco PostgreSQL e um serviço web no plano gratuito do Render. Em produção, o backend entrega também o frontend compilado, então o sistema inteiro fica em um único endereço.
+
+1. Faça login em [render.com](https://render.com) com sua conta GitHub.
+2. Clique em **New > Blueprint**, selecione este repositório e clique em **Apply**.
+3. Aguarde o build (5 a 10 minutos) e abra o endereço gerado (ex.: `https://pi2-almoxarifado-tatui.onrender.com`).
+4. Importe os dois arquivos de `amostras-csv/` pelo painel de importação do dashboard.
+
+Limitações do plano gratuito: o serviço "dorme" após 15 minutos sem acesso (o primeiro acesso seguinte leva cerca de 1 minuto) e o banco gratuito do Render expira em 30 dias. Para usar outro banco (ex.: [Neon](https://neon.tech)), troque a variável `DATABASE_URL` no painel do Render e defina `DATABASE_SSL=true`.
+
 ## Achados importantes sobre os dados de origem (JL Soft)
 
 Documentados em detalhe no relatório do Projeto Integrador. Resumo essencial para quem for mexer no importador:

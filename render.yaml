@@ -1,0 +1,25 @@
+# Blueprint do Render (render.com): cria o banco PostgreSQL e o serviço web.
+# No painel do Render: New > Blueprint > selecionar este repositório > Apply.
+services:
+  - type: web
+    name: pi2-almoxarifado-tatui
+    runtime: node
+    plan: free
+    # Compila o frontend (Vue) e instala o backend; o Express entrega os dois.
+    buildCommand: cd frontend && npm ci --include=dev && npm run build && cd ../backend && npm ci
+    # Cria/atualiza as tabelas (script idempotente) e inicia a API.
+    startCommand: cd backend && npm run db:migrate && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: pi2-almoxarifado-db
+          property: connectionString
+
+databases:
+  - name: pi2-almoxarifado-db
+    plan: free
+    databaseName: almoxarifado_tatui
+    user: almoxarifado_app
