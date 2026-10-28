@@ -1,0 +1,31 @@
+# Dependências
+node_modules/
+
+# Variáveis de ambiente
+.env
+.env.local
+
+# Build
+dist/
+frontend/dist/
+
+# Uploads temporários de importação
+backend/uploads/
+
+# Logs
+npm-debug.log*
+*.log
+
+# SO / Editor
+.DS_Store
+.vscode/
+.idea/
+
+# Documentos do Projeto Integrador (relatórios, termos, modelos e PDFs)
+# ficam fora do repositório
+*.docx
+*.pdf
+~$*
+
+# Cópias dos CSVs na raiz (as amostras versionadas ficam em amostras-csv/)
+/*.csv

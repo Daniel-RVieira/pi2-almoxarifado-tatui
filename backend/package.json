@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "API REST do Sistema Web de Monitoramento de Estoque do Almoxarifado da Câmara Municipal de Tatuí (PI2 - Grupo 13)",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "db:migrate": "node src/db/migrate.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "csv-parse": "^7.0.2",
+    "dotenv": "^18.0.3",
+    "express": "^5.2.1",
+    "multer": "^2.4.0",
+    "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
