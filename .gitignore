@@ -29,3 +29,6 @@ npm-debug.log*
 
 # Cópias dos CSVs na raiz (as amostras versionadas ficam em amostras-csv/)
 /*.csv
+
+# Vídeo de apresentação (arquivos grandes)
+video/

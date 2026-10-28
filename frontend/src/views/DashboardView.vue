@@ -24,14 +24,28 @@ async function carregarGrupos() {
   grupos.value = data;
 }
 
+// Cada consulta recebe um número; só a mais recente atualiza a tabela. Sem isso,
+// com a latência do servidor na nuvem, uma resposta antiga (ex.: de uma letra
+// digitada antes) podia chegar depois e sobrescrever o filtro atual.
+let ultimaConsulta = 0;
+
 async function carregarProdutos() {
+  const consulta = ++ultimaConsulta;
   carregandoProdutos.value = true;
   const { data } = await http.get("/produtos", {
     params: { grupoId: grupoId.value || undefined, busca: busca.value || undefined },
   });
+  if (consulta !== ultimaConsulta) return;
   produtos.value = data;
   carregandoProdutos.value = false;
 }
+
+// A busca espera 300 ms sem digitação antes de consultar; o grupo filtra na hora.
+let esperaBusca = null;
+watch(busca, () => {
+  clearTimeout(esperaBusca);
+  esperaBusca = setTimeout(carregarProdutos, 300);
+});
 
 async function carregarTudo() {
   await Promise.all([carregarResumo(), carregarGrupos(), carregarProdutos()]);
@@ -43,7 +57,7 @@ function aoImportar() {
 }
 
 onMounted(carregarTudo);
-watch([grupoId, busca], carregarProdutos);
+watch(grupoId, carregarProdutos);
 </script>
 
 <template>
